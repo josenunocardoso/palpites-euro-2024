@@ -1,0 +1,8 @@
+.vscode/
+node_modules/
+*.key
+out/
+secret/
+coverage/
+.nyc_output/
+nyc.sh

@@ -1,0 +1,22 @@
+{
+  "name": "palpites_euro_2024",
+  "version": "1.0.0",
+  "description": "Palpites Euro 2024",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jose Cardoso",
+  "license": "ISC",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^3.16.0",
+    "typescript": "^4.8.4",
+    "wrangler": "^2.20.2"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "firebase": "^9.11.0",
+    "react": "18.2.0",
+    "recharts": "2.12.7"
+  }
+}
