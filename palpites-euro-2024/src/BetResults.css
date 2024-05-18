@@ -1,0 +1,24 @@
+.TabelaJogos {
+    width: 100%;
+    font-size: calc(20px + 2vmin);
+    background-color: black;
+}
+
+tr.TabelaJogosHeader {
+    font-size: calc(20px + 2vmin);
+    background-color: aquamarine;
+}
+
+tr.TabelaJogosTr:nth-child(even) {
+    background-color: burlywood;
+    text-align: center;
+}
+
+tr.TabelaJogosTr:nth-child(odd) {
+    background-color: #CCC;
+    text-align: center;
+}
+
+.TabelaJogosTD {
+    text-align: center;
+}

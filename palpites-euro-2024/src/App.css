@@ -1,0 +1,89 @@
+.App {
+  height: 100%;
+}
+
+.App-logo {
+  height: 20vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.Guess {
+  font-size: calc(20px + 2vmin);
+  cursor: pointer;
+}
+
+.NoGuess {
+  font-size: calc(15px + 2vmin);
+  color: #333333;
+  cursor: pointer;
+}
+
+.Titulo {
+  font-size: 40px;
+}
+
+.TabelaJogos {
+  width: 100%;
+  font-size: calc(16px + 2vmin);
+  background-color: black;
+}
+
+tr.TabelaJogosHeader {
+  font-size: calc(20px + 2vmin);
+  background-color: aquamarine;
+}
+
+tr.TabelaJogosTr:nth-child(even) {
+  background-color: burlywood;
+  text-align: center;
+}
+
+tr.TabelaJogosTr:nth-child(odd) {
+  background-color: #CCC;
+  text-align: center;
+}
+
+tr.TabelaJogosTrCannotBet:nth-child(even) {
+  background-color: burlywood;
+  color: grey;
+  text-align: center;
+}
+
+tr.TabelaJogosTrCannotBet:nth-child(odd) {
+  background-color: #CCC;
+  color: grey;
+  text-align: center;
+}
+
+.TabelaJogosTD {
+  text-align: center;
+}
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: all 500ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+  transform: translateX(-100px);
+}
