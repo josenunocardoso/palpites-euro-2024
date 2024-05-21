@@ -354,8 +354,8 @@ export async function calculateTotalIncome(fixtureID) {
 
   let totalIncome = {};
   for (let i = 0; i < users.length; i++) {
-    //totalIncome[users[i].username] = initialPoints;
-    totalIncome[users[i].username] = await getTotalIncome(users[i].uid);
+    totalIncome[users[i].username] = initialPoints;
+    //totalIncome[users[i].username] = await getTotalIncome(users[i].uid);
   }
 
   const betIncomes = collection(db, "betIncomes");
@@ -379,7 +379,7 @@ export async function calculateTotalIncome(fixtureID) {
 
       const fixture = await getFixture(sortedMatchResults[i].fixtureID);
 
-      //if (currentBetIncome.docs.length == 0) {
+      if (currentBetIncome.docs.length == 0) {
         await setDoc(doc(db, "betIncomes", `${sortedMatchResults[i].fixtureID};${user?.uid}`), {
           fixtureID: sortedMatchResults[i].fixtureID,
           userUID: user?.uid,
@@ -390,8 +390,8 @@ export async function calculateTotalIncome(fixtureID) {
           income: currentIncome,
           matchDescription: fixture?.teamA + " vs " + fixture?.teamB
         });
-      //}
-      /*else {
+      }
+      else {
         await updateDoc(doc(db, "betIncomes", currentBetIncome.docs[0].id), {
           index: fixture?.index,
           totalIncome: totalIncome[user?.username],
@@ -400,7 +400,7 @@ export async function calculateTotalIncome(fixtureID) {
           user: user?.username,
           date: new Date(fixture?.date.seconds * 1000),
         });
-      }*/
+      }
     }
   }
 }
