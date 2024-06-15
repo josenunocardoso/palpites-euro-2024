@@ -321,7 +321,7 @@ export async function calculateBetIncome(fixtureID, userUID, matchResults) {
   if (userGuess == null) {
     userGuess = {
       result: null,
-      betValue: 15
+      betValue: 30
     };
   }
   
@@ -354,8 +354,8 @@ export async function calculateTotalIncome(fixtureID) {
 
   let totalIncome = {};
   for (let i = 0; i < users.length; i++) {
-    totalIncome[users[i].username] = initialPoints;
-    //totalIncome[users[i].username] = await getTotalIncome(users[i].uid);
+    //totalIncome[users[i].username] = initialPoints;
+    totalIncome[users[i].username] = await getTotalIncome(users[i].uid);
   }
 
   const betIncomes = collection(db, "betIncomes");
@@ -458,7 +458,7 @@ export async function getBetEstimates(fixtureID) {
     if (userGuess == null) {
       userGuess = {
         result: null,
-        betValue: 15
+        betValue: 30
       };
     }
 
