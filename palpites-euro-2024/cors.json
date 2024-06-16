@@ -1,0 +1,8 @@
+[
+    {
+      "origin": ["http://palpites-euro-2024.appspot.com"],
+      "responseHeader": ["Content-Type"],
+      "method": ["GET", "POST", "PUT", "PATCH", "HEAD", "DELETE"],
+      "maxAgeSeconds": 3600
+    }
+]

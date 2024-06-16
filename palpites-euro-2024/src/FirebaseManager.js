@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from "firebase/auth";
-import { getFirestore, collection, doc, setDoc, getDocs, query, where, updateDoc, enableIndexedDbPersistence, documentId } from 'firebase/firestore';
+import { getFirestore, collection, doc, setDoc, getDocs, query, where, updateDoc, documentId } from 'firebase/firestore';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
 const firebaseConfig = {
@@ -17,11 +17,6 @@ export const initialPoints = 1000;
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
-
-enableIndexedDbPersistence(db)
-  .catch(error => {
-    console.log(error);
-  });
 
 export async function downloadProfilePicture(userUID) {
   if (userUID == null) {
