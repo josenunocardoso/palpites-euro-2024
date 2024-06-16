@@ -286,8 +286,6 @@ export default class App extends Component {
         </select>
         <p/>
         <Oval
-          height="5vw"
-          width="5vw"
           color="#880000"
           wrapperStyle={{ justifyContent: "center", alignItems: "center" }}
           wrapperClass=""
