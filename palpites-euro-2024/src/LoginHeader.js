@@ -117,7 +117,7 @@ export default class LoginHeader extends Component {
                 <img onClick={() => document.getElementById("uploadInput").click()} title="Alterar Imagem" style={{ cursor: "pointer" }}
                     src={this.state.profilePicUrl} height={"100px"}></img>
                 <p/>
-                <button onClick={this.logout}>Terminar sessão</button>
+                <button onClick={this.logout}>{this.state.username ? "Terminar sessão" : "Iniciar sessão"}</button>
                 {
                     this.state.admin &&
                     <div>
