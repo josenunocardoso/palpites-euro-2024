@@ -1,6 +1,6 @@
 import { Component } from "react";
-import { CartesianGrid, Legend, Tooltip, Line, LineChart, ResponsiveContainer, XAxis, YAxis, BarChart, Bar } from "recharts";
-import { downloadProfilePicture, getAllTotalIncomes, getAllUsersWithPictures, getFixture, getFixtures, getFixturesCount, getGuesses, getUser, initialPoints } from "./FirebaseManager";
+import { CartesianGrid, Legend, Tooltip, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import { downloadProfilePicture, getAllTotalIncomes, getAllUsersWithPictures, getFixture, getFixturesCount, getGuesses, getUser, initialPoints } from "./FirebaseManager";
 import Confetti from 'react-confetti'
 
 class HistoryTooltip extends Component {
@@ -11,12 +11,16 @@ class HistoryTooltip extends Component {
             relativeValue: p.value - (this.props.firstSelectedGame > 1 ? this.props.games[this.props.firstSelectedGame - 1][p.name] : 0)
         })).sort((a, b) => (this.props.firstSelectedGame > 1 && b.relativeValue != a.relativeValue) ? b.relativeValue - a.relativeValue : b.value - a.value);
 
+        const textShadow = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
+
         return this.props.active && this.props.payload && (
             <div style={{ backgroundColor: "white", borderColor: "skyblue", borderWidth: "2px", borderStyle: "solid", padding: "5px" }}>
-                <p className="label">{`${this.props.label}`}</p>
+                <p style={{ fontWeight: "bold" }} className="label">{`${this.props.label}`}</p>
                 {
                     payload.map(p => 
-                        <p key={p.name} style={{ color: p.stroke, margin: "5px" }}>{p.name}: {p.value}{this.props.firstSelectedGame > 1 ? ` (${p.relativeValue})` : ""}</p>
+                        <p key={p.name} style={{ color: p.stroke, margin: "5px", fontWeight: "bold", textShadow: textShadow }}>
+                            {p.name}: {p.value}{this.props.firstSelectedGame > 1 ? ` (${p.relativeValue})` : ""}
+                        </p>
                     )
                 }
             </div>
