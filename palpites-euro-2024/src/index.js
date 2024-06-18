@@ -9,10 +9,12 @@ import LoginHeader from './LoginHeader';
 import reportWebVitals from './reportWebVitals';
 import BetResults from './BetResults';
 import SetResult from './SetResult';
+import GithubHeader from './GithubHeader';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <GithubHeader />
     <LoginHeader />
     <BrowserRouter>
       <Routes>
