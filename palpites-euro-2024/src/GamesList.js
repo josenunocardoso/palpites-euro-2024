@@ -147,8 +147,13 @@ class Guess extends Component {
               </DialogContentText>
               {
                 this.props.extraTime &&
-                  <label style={{ color: "darkblue" }}><b>Nota:
-                      É considerado o resultado no final do tempo regulamentar, mesmo que o resultado se altere no prolongamento.</b></label>
+                  <p style={{ color: "darkblue" }}><b>Nota:
+                      É considerado o resultado no final do tempo regulamentar, mesmo que o resultado se altere no prolongamento.</b></p>
+              }
+              {
+                this.props.extraPointsFactor > 1 &&
+                <label style={{ color: "gold" }}><b>Pontos extra:
+                    Esta fase vale {this.props.extraPointsFactor * 100 - 100}% pontos extra.</b></label>
               }
               <RadioGroup key="rgResult" row onChange={this.onResultChanged}>
                 <FormControlLabel
@@ -391,6 +396,7 @@ export default class GamesList extends Component {
                         <td><Guess
                             matchResult={this.props.matchResults?.find(mr => mr.fixtureID == g.id)?.result}
                             extraTime={g.stage.extraTime}
+                            extraPointsFactor={g.stage.extraPointsFactor}
                             hideGuesses={this.props.hideGuesses}
                             teamA={g.teamA} teamB={g.teamB} fixture={g.id} canBet={g.canBet} />
                         </td>

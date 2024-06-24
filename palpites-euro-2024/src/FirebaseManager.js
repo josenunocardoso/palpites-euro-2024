@@ -138,6 +138,32 @@ export async function getGuesses(fixtureID) {
   })).filter(g => !g.user?.test);
 }
 
+export async function getExtraPointsFactorForFixture(fixtureID) {
+  const fixture = query(
+    collection(db, "fixtures"),
+    where(documentId(), "==", fixtureID)
+  );
+  const fixtureSnapshot = await getDocs(fixture);
+  const fixturesList = fixtureSnapshot.docs.map(doc => doc.data());
+  
+  if (fixturesList.length == 0) {
+    return 1;
+  }
+
+  const stage = query(
+    collection(db, "stages"),
+    where(documentId(), "==", fixturesList[0].stage)
+  );
+  const stageSnapshot = await getDocs(stage);
+  const stagesList = stageSnapshot.docs.map(doc => doc.data());
+
+  if (stagesList.length == 0) {
+    return 1;
+  }
+
+  return stagesList[0].extraPointsFactor;
+}
+
 export async function setGuess(fixtureID, result, betValue) {
   const userUID = getAuth().currentUser.uid;
 
@@ -326,7 +352,9 @@ export async function calculateBetIncome(fixtureID, userUID, matchResults) {
 
   if (allGuesses.length == 0) return -userGuess.betValue;
 
-  const betExtraRatio = 2.25;
+  const extraPointsFactor = await getExtraPointsFactorForFixture(fixtureID);
+
+  const betExtraRatio = 2.25 * extraPointsFactor;
   const allBetsSum = allGuesses
     .map(g => parseInt(g.betValue))
     .reduce((a, b) => a + b, 0);
