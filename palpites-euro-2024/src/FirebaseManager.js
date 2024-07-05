@@ -152,7 +152,7 @@ export async function getExtraPointsFactorForFixture(fixtureID) {
 
   const stage = query(
     collection(db, "stages"),
-    where(documentId(), "==", fixturesList[0].stage)
+    where(documentId(), "==", fixturesList[0].stage.id)
   );
   const stageSnapshot = await getDocs(stage);
   const stagesList = stageSnapshot.docs.map(doc => doc.data());
@@ -375,56 +375,24 @@ export async function calculateTotalIncome(fixtureID) {
 
   const sortedMatchResults = allMatchResults.sort((a, b) => a.index - b.index);
 
-  let totalIncome = {};
   for (let i = 0; i < users.length; i++) {
     //totalIncome[users[i].username] = initialPoints;
-    totalIncome[users[i].username] = await getTotalIncome(users[i].uid);
-  }
+    const user = users[i];
+    const currentTotalIncome = await getTotalIncome(user.uid);
+    const fixtureIncome = await calculateBetIncome(fixtureID, user?.uid, sortedMatchResults);
 
-  const betIncomes = collection(db, "betIncomes");
+    const fixture = await getFixture(fixtureID);
 
-  for (let i = 0; i < sortedMatchResults.length; i++) {
-    for (let j = 0; j < users.length; j++) {
-      const user = users[j];
-      console.log(user);
-      
-      const currentBetIncome = await getDocs(query(
-        betIncomes,
-        where("fixtureID", "==", sortedMatchResults[i].fixtureID),
-        where("userUID", "==", user?.uid)
-      ));
-      if (currentBetIncome.docs.length > 0 && fixtureID != sortedMatchResults[i].fixtureID) {
-        continue;
-      }
-
-      const currentIncome = await calculateBetIncome(sortedMatchResults[i].fixtureID, user?.uid, sortedMatchResults);
-      totalIncome[user?.username] += currentIncome;
-
-      const fixture = await getFixture(sortedMatchResults[i].fixtureID);
-
-      if (currentBetIncome.docs.length == 0) {
-        await setDoc(doc(db, "betIncomes", `${sortedMatchResults[i].fixtureID};${user?.uid}`), {
-          fixtureID: sortedMatchResults[i].fixtureID,
-          userUID: user?.uid,
-          user: user?.username,
-          date: new Date(fixture?.date.seconds * 1000),
-          index: fixture?.index,
-          totalIncome: totalIncome[user?.username],
-          income: currentIncome,
-          matchDescription: fixture?.teamA + " vs " + fixture?.teamB
-        });
-      }
-      else {
-        await updateDoc(doc(db, "betIncomes", currentBetIncome.docs[0].id), {
-          index: fixture?.index,
-          totalIncome: totalIncome[user?.username],
-          income: currentIncome,
-          matchDescription: fixture?.teamA + " vs " + fixture?.teamB,
-          user: user?.username,
-          date: new Date(fixture?.date.seconds * 1000),
-        });
-      }
-    }
+    await setDoc(doc(db, "betIncomes", `${fixtureID};${user?.uid}`), {
+      fixtureID,
+      userUID: user?.uid,
+      user: user?.username,
+      date: new Date(fixture?.date.seconds * 1000),
+      index: fixture?.index,
+      totalIncome: currentTotalIncome + fixtureIncome,
+      income: fixtureIncome,
+      matchDescription: fixture?.teamA + " vs " + fixture?.teamB
+    });
   }
 }
 
