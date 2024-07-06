@@ -1,7 +1,7 @@
 import logo from './resources/euro_2024_icon.svg';
 import './App.css';
 import { Component } from "react"
-import { downloadProfilePicture, getAllUsersWithPictures, getBetEstimates, getBetIncomesByFixture, getExtraPointsFactorForFixture, getFixtures, getGuesses, getMatchResults, getStages, getTotalIncome, getUserFilterPreference, setUserFilterPreference } from "./FirebaseManager"
+import { downloadProfilePicture, getAllUsersWithPictures, getBetEstimates, getBetIncomesByFixture, getFixtures, getGuesses, getMatchResults, getStages, getTotalIncome, getUserFilterPreference, setUserFilterPreference } from "./FirebaseManager"
 import { CSSTransition } from 'react-transition-group';
 import GamesList from './GamesList';
 import ReactModal from "react-modal";
@@ -48,11 +48,6 @@ export default class App extends Component {
         id: g.id,
         canBet: g.canBet
       }));
-      games.forEach(g => {
-        getExtraPointsFactorForFixture(g.id).then(points => {
-          console.log(points);
-        });
-      });
 
       this.setState({
         games: gamesSorted.sort((g1, g2) => g1.index - g2.index)

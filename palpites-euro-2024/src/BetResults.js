@@ -248,6 +248,11 @@ export default class BetResults extends Component {
                             <tr style={{ textAlign: "center" }}>
                                 <td><label style={{ fontSize: "30px" }}><b>Pontuação Global</b></label></td>
                             </tr>
+                            <tr style={{ textAlign: "center" }}>
+                                <td>
+                                    <img width={"70px"} src={require("./resources/TacaPalpitesEuro2024.png")}></img>
+                                </td>
+                            </tr>
                         </thead>
                         <tbody>
                             <tr>
