@@ -455,7 +455,9 @@ export async function getBetEstimates(fixtureID) {
 
     if (allGuesses.length == 0) return -userGuess.betValue;
 
-    const betExtraRatio = 2.25;
+    const extraPointsFactor = await getExtraPointsFactorForFixture(fixtureID);
+
+    const betExtraRatio = 2.25 * extraPointsFactor;
     const allBetsSum = allGuesses
       .map(g => parseInt(g.betValue))
       .reduce((a, b) => a + b, 0);
